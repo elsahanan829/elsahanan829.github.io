@@ -41,35 +41,14 @@
 </head>
 <body>
     <div class="video-container">
-        <iframe id="video" src="https://www.youtube.com/embed/Si7DovGBDuQ?enablejsapi=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://megazid.store/iframe/I8T4jmZAYgybb" scrolling="no" frameborder="0" width="100%" height="100%" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
         <div class="overlay" id="overlay">
             <!-- Add any content you want in the overlay here -->
         </div>
     </div>
 
     <script>
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('video', {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerStateChange(event) {
-            var overlay = document.getElementById('overlay');
-            if (event.data == YT.PlayerState.PAUSED) {
-                overlay.style.display = 'flex';
-            } else {
-                overlay.style.display = 'none';
-            }
-        }
+        // Add your custom JavaScript here if needed
     </script>
 </body>
 </html>
