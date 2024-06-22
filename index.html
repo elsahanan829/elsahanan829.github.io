@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Kids' Videos</title>
-    <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
@@ -18,6 +17,13 @@
         }
         .video-container {
             position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
         }
@@ -35,25 +41,35 @@
 </head>
 <body>
     <div class="video-container">
-        <video-js id="video" class="vjs-default-skin" controls preload="auto" width="640" height="264">
-            <source src="https://vipgoodlive-tvs.starcdn.live/SuperSport_Premier_League_Live_TV/index.m3u8?tokenkey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpcGNsaWVudCI6IjUuMTgyLjIwOS4xMTIiLCJ1cmxzdHJlYW0iOiJodHRwczovL2xpdmVfdHYuc3RhcmNkbnVwLmNvbS9TdXBlclNwb3J0X1ByZW1pZXJfTGVhZ3VlX0xpdmVfVFYvaW5kZXgubTN1OCIsIndlYnNpdGUiOiJodHRwczovL2JlZXNwb3J0Lm5ldC9hdXRob3JpemUtY2hhbm5lbCIsImlzVklQIjoiMCIsImV4cCI6MTcxODkwODMxMX0.cepL7pceB7ij4aYmidABmpxyYesXglAZobZuLIxp26E&ref=https://beesport.net/" type="application/x-mpegURL">
-        </video-js>
+        <iframe id="video" src="https://www.youtube.com/embed/c8zWhT2eBzM?enablejsapi=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="overlay" id="overlay">
             <!-- Add any content you want in the overlay here -->
         </div>
     </div>
 
-    <script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
     <script>
-        var player = videojs('video');
-        
-        player.on('pause', function() {
-            document.getElementById('overlay').style.display = 'flex';
-        });
-        
-        player.on('play', function() {
-            document.getElementById('overlay').style.display = 'none';
-        });
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('video', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            var overlay = document.getElementById('overlay');
+            if (event.data == YT.PlayerState.PAUSED) {
+                overlay.style.display = 'flex';
+            } else {
+                overlay.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>
